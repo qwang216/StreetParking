@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oeY-RQ-KsO">
+                                <rect key="frame" x="0.0" y="70" width="600" height="486"/>
+                                <animations/>
+                            </mapView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zgn-ff-2Aj">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="70"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Category (eg. food)" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Dpu-Kv-1s3">
+                                        <rect key="frame" x="8" y="27" width="510" height="30"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z0Q-gO-2ow">
+                                        <rect key="frame" x="526" y="27" width="66" height="30"/>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="66" id="hLn-M2-trU"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Search"/>
+                                        <connections>
+                                            <action selector="searchButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uI5-1u-WeG"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <animations/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="Dpu-Kv-1s3" firstAttribute="top" secondItem="zgn-ff-2Aj" secondAttribute="top" constant="27" id="54z-Tx-aEl"/>
+                                    <constraint firstAttribute="trailing" secondItem="Z0Q-gO-2ow" secondAttribute="trailing" constant="8" id="89B-VC-eBZ"/>
+                                    <constraint firstItem="Z0Q-gO-2ow" firstAttribute="leading" secondItem="Dpu-Kv-1s3" secondAttribute="trailing" constant="8" id="I3T-9U-E4e"/>
+                                    <constraint firstItem="Dpu-Kv-1s3" firstAttribute="leading" secondItem="zgn-ff-2Aj" secondAttribute="leading" constant="8" id="RuO-wO-YIx"/>
+                                    <constraint firstAttribute="height" constant="70" id="nj1-vL-92N"/>
+                                    <constraint firstAttribute="trailing" secondItem="Dpu-Kv-1s3" secondAttribute="trailing" constant="8" id="p71-N6-fTh"/>
+                                    <constraint firstItem="Z0Q-gO-2ow" firstAttribute="top" secondItem="zgn-ff-2Aj" secondAttribute="top" constant="27" id="vAk-Jq-9P9"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="p71-N6-fTh"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="1s1-Db-xaR">
+                                <rect key="frame" x="20" y="564" width="560" height="29"/>
+                                <animations/>
+                                <segments>
+                                    <segment title="Standard"/>
+                                    <segment title="Hybride"/>
+                                    <segment title="Satellite"/>
+                                </segments>
+                                <connections>
+                                    <action selector="mapType:" destination="BYZ-38-t0r" eventType="valueChanged" id="8zG-3a-A3B"/>
+                                </connections>
+                            </segmentedControl>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="zgn-ff-2Aj" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="2Fz-Ex-Opc"/>
+                            <constraint firstItem="1s1-Db-xaR" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="2R8-4d-CO5"/>
+                            <constraint firstItem="zgn-ff-2Aj" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="AZg-eM-stP"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="1s1-Db-xaR" secondAttribute="bottom" constant="8" id="EKZ-QV-UWj"/>
+                            <constraint firstItem="oeY-RQ-KsO" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Fsi-X7-DM2"/>
+                            <constraint firstItem="oeY-RQ-KsO" firstAttribute="top" secondItem="zgn-ff-2Aj" secondAttribute="bottom" id="Ozw-3a-p6E"/>
+                            <constraint firstAttribute="trailing" secondItem="oeY-RQ-KsO" secondAttribute="trailing" id="SK3-8W-Q6k"/>
+                            <constraint firstItem="oeY-RQ-KsO" firstAttribute="top" secondItem="zgn-ff-2Aj" secondAttribute="bottom" id="Sg4-HK-NHT"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="oeY-RQ-KsO" secondAttribute="bottom" id="c2j-ke-HE4"/>
+                            <constraint firstAttribute="trailing" secondItem="zgn-ff-2Aj" secondAttribute="trailing" id="mrf-ll-5sI"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="1s1-Db-xaR" secondAttribute="trailing" id="qgM-Zz-acl"/>
+                            <constraint firstItem="1s1-Db-xaR" firstAttribute="top" secondItem="oeY-RQ-KsO" secondAttribute="bottom" constant="8" id="vcP-gF-alB"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Ozw-3a-p6E"/>
+                                <exclude reference="c2j-ke-HE4"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="oeY-RQ-KsO" id="ZVq-Nj-IUq"/>
+                        <outlet property="searchTextFiel" destination="Dpu-Kv-1s3" id="5ts-9h-TDL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="305" y="366"/>
+        </scene>
+    </scenes>
+</document>
