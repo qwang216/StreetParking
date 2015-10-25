@@ -20,6 +20,8 @@
 //Location Property
 @property (nonatomic) CLLocationManager *locationManager;
 @property (nonatomic) MKCoordinateRegion currentRegion;
+@property (nonatomic) NSString *resultAddress;
+@property (nonatomic) CLLocationCoordinate2D resultCoordinate2D;
 
 //Keyboard
 @property (nonatomic) UITapGestureRecognizer *tapReconizer;
@@ -27,6 +29,7 @@
 
 //API Data Holder
 @property (nonatomic) NSMutableDictionary *googleResponseObject;
+@property (nonatomic) NSMutableDictionary *streetParkingObject;
 
 
 
@@ -119,22 +122,51 @@
     [APIManager searchGoogleAPIWithStringAddress:searchBar.text completionHandler:^(id reponse, NSError *error) {
         
         if ([reponse[@"status"] isEqualToString:@"OK"]) {
+            self.googleResponseObject = [[NSMutableDictionary alloc]init];
             self.googleResponseObject = reponse;
-            [self parseGoogleAPI];
+            self.resultAddress = self.googleResponseObject[@"results"][0][@"formatted_address"];
+            self.resultCoordinate2D = CLLocationCoordinate2DMake([self.googleResponseObject[@"results"][0][@"geometry"][@"location"][@"lat"]doubleValue], [self.googleResponseObject[@"results"][0][@"geometry"][@"location"][@"lng"]doubleValue]);
+            NSLog(@"lat-%f   lng-%f", self.resultCoordinate2D.latitude, self.resultCoordinate2D.longitude);
+            [self processHerokuAPI];
         } else {
             NSLog(@"Display a Alert");
         }
     }];
-
 }
 
--(void)parseGoogleAPI{
+-(void)processHerokuAPI{
+    // grab Radius from NSUserDefault
+
+    [APIManager searchStreetParkingHerokuWithLocation:self.resultCoordinate2D withRadius:50 completionHandler:^(id reponse, NSError *error) {
+        if (!error) {
+            self.streetParkingObject = [[NSMutableDictionary alloc]init];
+            self.streetParkingObject = reponse;
+            [self updateMap];
+        } else {
+            NSLog(@"Alert Error!!");
+        }
+    }];
+}
+
+-(void)updateMap {
+    [self.mapView removeAnnotations:self.mapView.annotations];
+    NSArray *listOfSigns = [self.streetParkingObject objectForKey:@"results"];
     
+    for (NSDictionary *streetSign in listOfSigns) {
+        [self addMappAnnotationForStreetSign: streetSign];
+    }
 }
 
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-    searchBar.text = @"";
-    [searchBar resignFirstResponder];
+-(void)addMappAnnotationForStreetSign: (NSDictionary *)sign{
+    MKPointAnnotation *mapPin = [[MKPointAnnotation alloc] init];
+    
+    double lat = [sign[@"latitude"] doubleValue];
+    double lng = [sign[@"longtitude"] doubleValue];
+    CLLocationCoordinate2D latLng = CLLocationCoordinate2DMake(lat, lng);
+    
+    mapPin.coordinate = latLng;
+    mapPin.title = sign[@"signdesc"];
+    [self.mapView addAnnotation:mapPin];
 }
 
 #pragma mark - KeyboardBehaviors
@@ -158,7 +190,6 @@
 -(void)didTapAnyWhere: (UITapGestureRecognizer *)reconizer {
     [self.searchBar resignFirstResponder];
 }
-
 
 
 @end
