@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		83CE29C680F110A056259866 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38C02E4CA16DEFA9AA69610C /* libPods.a */; };
+		D447AF0F1BDCAAA2000D3311 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D447AF0E1BDCAAA2000D3311 /* APIManager.m */; };
 		D47FCA6B1BDC087D000BE6BA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D47FCA6A1BDC087D000BE6BA /* main.m */; };
 		D47FCA6E1BDC087D000BE6BA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D47FCA6D1BDC087D000BE6BA /* AppDelegate.m */; };
 		D47FCA741BDC087D000BE6BA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D47FCA721BDC087D000BE6BA /* Main.storyboard */; };
@@ -42,6 +43,8 @@
 		258ECB01C8A3D51AD05CFD23 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		38C02E4CA16DEFA9AA69610C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC18B40FEB127535708935DE /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		D447AF0D1BDCAAA2000D3311 /* APIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIManager.h; sourceTree = "<group>"; };
+		D447AF0E1BDCAAA2000D3311 /* APIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIManager.m; sourceTree = "<group>"; };
 		D47FCA661BDC087D000BE6BA /* SmartPark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartPark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D47FCA6A1BDC087D000BE6BA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D47FCA6C1BDC087D000BE6BA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -136,6 +139,8 @@
 			children = (
 				D47FCA6C1BDC087D000BE6BA /* AppDelegate.h */,
 				D47FCA6D1BDC087D000BE6BA /* AppDelegate.m */,
+				D447AF0D1BDCAAA2000D3311 /* APIManager.h */,
+				D447AF0E1BDCAAA2000D3311 /* APIManager.m */,
 				D47FCA9F1BDC091C000BE6BA /* StreetMapViewController.h */,
 				D47FCAA01BDC091C000BE6BA /* StreetMapViewController.m */,
 				D47FCA721BDC087D000BE6BA /* Main.storyboard */,
@@ -371,6 +376,7 @@
 				D47FCA6B1BDC087D000BE6BA /* main.m in Sources */,
 				D47FCAA11BDC091C000BE6BA /* StreetMapViewController.m in Sources */,
 				D47FCA771BDC087D000BE6BA /* SmartPark.xcdatamodeld in Sources */,
+				D447AF0F1BDCAAA2000D3311 /* APIManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

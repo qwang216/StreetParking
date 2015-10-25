@@ -10,6 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 
 #import "StreetMapViewController.h"
+#import "APIManager.h"
 
 @interface StreetMapViewController () <MKMapViewDelegate, CLLocationManagerDelegate, UISearchBarDelegate>
 //IBOutlet
@@ -20,7 +21,13 @@
 @property (nonatomic) CLLocationManager *locationManager;
 @property (nonatomic) MKCoordinateRegion currentRegion;
 
+//Keyboard
 @property (nonatomic) UITapGestureRecognizer *tapReconizer;
+
+
+//API Data Holder
+@property (nonatomic) NSMutableDictionary *googleResponseObject;
+
 
 
 @end
@@ -43,6 +50,7 @@
     
     
 }
+
 
 #pragma mark - IBActions
 
@@ -73,7 +81,7 @@
 }
 
 
-#pragma mark - LocationMethodsAndDelegate
+#pragma mark - LocationMethods
 -(void)checkForLocationServices{
     
     if ([CLLocationManager locationServicesEnabled] ) {
@@ -105,12 +113,24 @@
     self.currentRegion = MKCoordinateRegionMakeWithDistance(newLocation.coordinate, 800, 800);
 }
 
-#pragma mark - SearchBarDelegate
+#pragma mark - SearchBar
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    [APIManager searchGoogleAPIWithStringAddress:searchBar.text completionHandler:^(id reponse, NSError *error) {
+        
+        if ([reponse[@"status"] isEqualToString:@"OK"]) {
+            self.googleResponseObject = reponse;
+            [self parseGoogleAPI];
+        } else {
+            NSLog(@"Display a Alert");
+        }
+    }];
 
 }
 
+-(void)parseGoogleAPI{
+    
+}
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     searchBar.text = @"";
