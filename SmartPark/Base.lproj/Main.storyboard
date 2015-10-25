@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BfK-dd-1EE">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+    </dependencies>
+    <scenes>
+        <!--Street Map View Controller-->
+        <scene sceneID="guG-em-DiK">
+            <objects>
+                <viewController id="BfK-dd-1EE" customClass="StreetMapViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="0au-3I-bf3"/>
+                        <viewControllerLayoutGuide type="bottom" id="0Ml-2g-tZS"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="CCL-Fy-gPb">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lWu-pg-uI3">
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                                <animations/>
+                            </mapView>
+                            <searchBar contentMode="redraw" placeholder="Address" showsBookmarkButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mca-Rd-wLO">
+                                <rect key="frame" x="4" y="28" width="592" height="44"/>
+                                <animations/>
+                                <textInputTraits key="textInputTraits" returnKeyType="search"/>
+                                <scopeButtonTitles>
+                                    <string>Title</string>
+                                    <string>Title</string>
+                                </scopeButtonTitles>
+                            </searchBar>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qxT-YJ-ho0">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="guo-qw-Nqa"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem systemItem="refresh" id="MBN-5K-lSw">
+                                        <connections>
+                                            <action selector="refreshButtonTapped:" destination="BfK-dd-1EE" id="tKJ-di-Znd"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Gpl-QS-iIl"/>
+                                    <barButtonItem style="plain" id="sxX-Lw-Qnn">
+                                        <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="7lh-J4-hK9">
+                                            <rect key="frame" x="180" y="7" width="239" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <animations/>
+                                            <segments>
+                                                <segment title="Standard"/>
+                                                <segment title="Hybride"/>
+                                                <segment title="Satelite"/>
+                                            </segments>
+                                            <connections>
+                                                <action selector="mapType:" destination="BfK-dd-1EE" eventType="valueChanged" id="B8Q-nF-1Ui"/>
+                                            </connections>
+                                        </segmentedControl>
+                                        <connections>
+                                            <action selector="refreshButtonTapped:" destination="BfK-dd-1EE" id="dgm-jG-Mnx"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="8rU-6T-JfF"/>
+                                    <barButtonItem title="Info" style="plain" id="Dbb-nE-2AU">
+                                        <connections>
+                                            <action selector="infoButtonTapped:" destination="BfK-dd-1EE" id="XEA-cQ-Uhx"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="0Ml-2g-tZS" firstAttribute="top" secondItem="qxT-YJ-ho0" secondAttribute="bottom" id="CDZ-ve-kT8"/>
+                            <constraint firstItem="qxT-YJ-ho0" firstAttribute="leading" secondItem="CCL-Fy-gPb" secondAttribute="leading" id="Rbn-F5-XfT"/>
+                            <constraint firstAttribute="trailing" secondItem="lWu-pg-uI3" secondAttribute="trailing" id="Zwm-d9-OEQ"/>
+                            <constraint firstItem="lWu-pg-uI3" firstAttribute="top" secondItem="0au-3I-bf3" secondAttribute="bottom" id="die-NT-KaL"/>
+                            <constraint firstItem="mca-Rd-wLO" firstAttribute="leading" secondItem="CCL-Fy-gPb" secondAttribute="leading" constant="4" id="fOl-eJ-ktH"/>
+                            <constraint firstAttribute="trailing" secondItem="qxT-YJ-ho0" secondAttribute="trailing" id="oII-KA-at3"/>
+                            <constraint firstItem="0Ml-2g-tZS" firstAttribute="top" secondItem="lWu-pg-uI3" secondAttribute="bottom" id="q4h-14-MrK"/>
+                            <constraint firstItem="mca-Rd-wLO" firstAttribute="top" secondItem="0au-3I-bf3" secondAttribute="bottom" constant="8" id="sgF-7K-93e"/>
+                            <constraint firstAttribute="trailing" secondItem="mca-Rd-wLO" secondAttribute="trailing" constant="4" id="td0-2O-5DM"/>
+                            <constraint firstItem="lWu-pg-uI3" firstAttribute="leading" secondItem="CCL-Fy-gPb" secondAttribute="leading" id="vhX-Pd-sbw"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="lWu-pg-uI3" id="ucW-8Z-u60"/>
+                        <outlet property="searchBar" destination="mca-Rd-wLO" id="knK-K2-jxj"/>
+                        <outlet property="searchDisplayController" destination="fpA-nI-QHi" id="uk7-dx-d57"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="i9t-ra-yc6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="fpA-nI-QHi">
+                    <connections>
+                        <outlet property="delegate" destination="BfK-dd-1EE" id="hWg-jc-LSL"/>
+                        <outlet property="searchContentsController" destination="BfK-dd-1EE" id="lsU-F7-s2f"/>
+                        <outlet property="searchResultsDataSource" destination="BfK-dd-1EE" id="yUq-Qv-KAP"/>
+                        <outlet property="searchResultsDelegate" destination="BfK-dd-1EE" id="TGF-Hh-SoR"/>
+                    </connections>
+                </searchDisplayController>
+            </objects>
+            <point key="canvasLocation" x="392" y="340"/>
+        </scene>
+    </scenes>
+</document>
