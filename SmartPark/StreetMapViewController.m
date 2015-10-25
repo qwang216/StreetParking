@@ -94,6 +94,7 @@
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
     CLLocation *newLocation = [locations lastObject];
+    
 //    CLLocation *oldLocation;
 //    if (locations.count > 1) {
 //        oldLocation = [locations objectAtIndex:locations.count - 2];

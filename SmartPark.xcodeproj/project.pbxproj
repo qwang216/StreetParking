@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		83CE29C680F110A056259866 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38C02E4CA16DEFA9AA69610C /* libPods.a */; };
 		D47FCA6B1BDC087D000BE6BA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D47FCA6A1BDC087D000BE6BA /* main.m */; };
 		D47FCA6E1BDC087D000BE6BA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D47FCA6D1BDC087D000BE6BA /* AppDelegate.m */; };
 		D47FCA741BDC087D000BE6BA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D47FCA721BDC087D000BE6BA /* Main.storyboard */; };
@@ -38,6 +39,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		258ECB01C8A3D51AD05CFD23 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		38C02E4CA16DEFA9AA69610C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC18B40FEB127535708935DE /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		D47FCA661BDC087D000BE6BA /* SmartPark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartPark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D47FCA6A1BDC087D000BE6BA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D47FCA6C1BDC087D000BE6BA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -66,6 +70,7 @@
 			files = (
 				D47FCAA61BDC0F7F000BE6BA /* CoreLocation.framework in Frameworks */,
 				D47FCAA31BDC0D7F000BE6BA /* MapKit.framework in Frameworks */,
+				83CE29C680F110A056259866 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +91,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1C16C89B6212384C76146979 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BC18B40FEB127535708935DE /* Pods.debug.xcconfig */,
+				258ECB01C8A3D51AD05CFD23 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		50114A3B833B24F2D97C2E9D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				38C02E4CA16DEFA9AA69610C /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D47FCA5D1BDC087D000BE6BA = {
 			isa = PBXGroup;
 			children = (
@@ -94,6 +116,8 @@
 				D47FCA851BDC087D000BE6BA /* SmartParkTests */,
 				D47FCA901BDC087D000BE6BA /* SmartParkUITests */,
 				D47FCA671BDC087D000BE6BA /* Products */,
+				1C16C89B6212384C76146979 /* Pods */,
+				50114A3B833B24F2D97C2E9D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -166,9 +190,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D47FCA961BDC087D000BE6BA /* Build configuration list for PBXNativeTarget "SmartPark" */;
 			buildPhases = (
+				123021644EEAAB5A43D59BBA /* Check Pods Manifest.lock */,
 				D47FCA621BDC087D000BE6BA /* Sources */,
 				D47FCA631BDC087D000BE6BA /* Frameworks */,
 				D47FCA641BDC087D000BE6BA /* Resources */,
+				BC01CEEC30A4F680167981B7 /* Embed Pods Frameworks */,
+				67FD13AA134AA5B208A9568C /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -286,6 +313,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		123021644EEAAB5A43D59BBA /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		67FD13AA134AA5B208A9568C /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BC01CEEC30A4F680167981B7 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D47FCA621BDC087D000BE6BA /* Sources */ = {
@@ -432,6 +507,7 @@
 		};
 		D47FCA971BDC087D000BE6BA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BC18B40FEB127535708935DE /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SmartPark/Info.plist;
@@ -444,6 +520,7 @@
 		};
 		D47FCA981BDC087D000BE6BA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 258ECB01C8A3D51AD05CFD23 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SmartPark/Info.plist;
@@ -521,6 +598,7 @@
 				D47FCA981BDC087D000BE6BA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D47FCA991BDC087D000BE6BA /* Build configuration list for PBXNativeTarget "SmartParkTests" */ = {
 			isa = XCConfigurationList;
@@ -529,6 +607,7 @@
 				D47FCA9B1BDC087D000BE6BA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D47FCA9C1BDC087D000BE6BA /* Build configuration list for PBXNativeTarget "SmartParkUITests" */ = {
 			isa = XCConfigurationList;
@@ -537,6 +616,7 @@
 				D47FCA9E1BDC087D000BE6BA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
