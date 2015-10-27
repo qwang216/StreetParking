@@ -12,10 +12,10 @@
 @interface APIManager : NSObject
 
 +(void)searchStreetParkingHerokuWithLocation:(CLLocationCoordinate2D)location
-                                  withRadius:(int)radius
-                           completionHandler:(void(^)(id reponse, NSError *error))handler;
+                                  withRadius:(NSString *)radius
+                           completionHandler:(void(^)(id response, NSError *error))handler;
 
 
 +(void)searchGoogleAPIWithStringAddress:(NSString *)address
-                      completionHandler:(void(^)(id reponse, NSError *error))handler;
+                      completionHandler:(void(^)(id response, NSError *error))handler;
 @end

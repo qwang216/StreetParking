@@ -30,7 +30,7 @@
 //API Data Holder
 @property (nonatomic) NSMutableDictionary *googleResponseObject;
 @property (nonatomic) NSMutableDictionary *streetParkingObject;
-
+@property (nonatomic) NSString *radiusRange;
 
 
 @end
@@ -39,6 +39,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    if ([[NSUserDefaults standardUserDefaults] stringForKey:@"radius"] == nil) {
+        self.radiusRange = @"50";
+        [self saveToNSUserDefaults];
+    }
     
     self.mapView.delegate = self;
     self.searchBar.delegate = self;
@@ -58,7 +63,9 @@
 #pragma mark - IBActions
 
 - (IBAction)refreshButtonTapped:(UIBarButtonItem *)sender {
+    
     [self.mapView setRegion:self.currentRegion animated:YES];
+    
 }
 
 
@@ -81,8 +88,33 @@
 }
 
 - (IBAction)infoButtonTapped:(UIBarButtonItem *)sender {
+    UIAlertController *radiusSelection = [UIAlertController alertControllerWithTitle:@"Radius" message:@"Select One For Your Default Radius Search" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *oneHundredMeter = [UIAlertAction actionWithTitle:@"100 Meters" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        self.radiusRange = @"100";
+        [self saveToNSUserDefaults];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }];
+    UIAlertAction *oneFiftyMeter = [UIAlertAction actionWithTitle:@"150 Meters" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        self.radiusRange = @"150";
+        [self saveToNSUserDefaults];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }];
+    UIAlertAction *twoHundred = [UIAlertAction actionWithTitle:@"200 Meters" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        self.radiusRange = @"200";
+        [self saveToNSUserDefaults];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }];
+    
+    [radiusSelection addAction:oneHundredMeter];
+    [radiusSelection addAction:oneFiftyMeter];
+    [radiusSelection addAction:twoHundred];
+    [self presentViewController:radiusSelection animated:YES completion:nil];
 }
 
+-(void)saveToNSUserDefaults {
+    [[NSUserDefaults standardUserDefaults] setObject:self.radiusRange forKey:@"radius"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
 
 #pragma mark - LocationMethods
 -(void)checkForLocationServices{
@@ -95,6 +127,7 @@
         UIAlertController *locationServicesAlert = [UIAlertController alertControllerWithTitle:@"Enable Location Services" message:@"Please Enable The Location Services In Setting" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             NSLog(@"Location Services Not Enabled");
+            [self dismissViewControllerAnimated:YES completion:nil];
         }];
         [locationServicesAlert addAction:okAction];
         [self presentViewController:locationServicesAlert animated:YES completion:nil];
@@ -119,14 +152,17 @@
 #pragma mark - SearchBar
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    [APIManager searchGoogleAPIWithStringAddress:searchBar.text completionHandler:^(id reponse, NSError *error) {
+    
+    [APIManager searchGoogleAPIWithStringAddress:searchBar.text completionHandler:^(id response, NSError *error) {
         
-        if ([reponse[@"status"] isEqualToString:@"OK"]) {
+        NSLog(@"Google API reponse %@",response);
+        NSLog(@"Google API Error %@",error);
+        if ([response[@"status"] isEqualToString:@"OK"]) {
             self.googleResponseObject = [[NSMutableDictionary alloc]init];
-            self.googleResponseObject = reponse;
+            self.googleResponseObject = response;
             self.resultAddress = self.googleResponseObject[@"results"][0][@"formatted_address"];
             self.resultCoordinate2D = CLLocationCoordinate2DMake([self.googleResponseObject[@"results"][0][@"geometry"][@"location"][@"lat"]doubleValue], [self.googleResponseObject[@"results"][0][@"geometry"][@"location"][@"lng"]doubleValue]);
-            NSLog(@"lat-%f   lng-%f", self.resultCoordinate2D.latitude, self.resultCoordinate2D.longitude);
+            NSLog(@"lat: %f   lng: %f", self.resultCoordinate2D.latitude, self.resultCoordinate2D.longitude);
             [self processHerokuAPI];
         } else {
             NSLog(@"Display a Alert");
@@ -135,15 +171,16 @@
 }
 
 -(void)processHerokuAPI{
-    // grab Radius from NSUserDefault
+    self.radiusRange = [[NSUserDefaults standardUserDefaults] objectForKey:@"radius"];
 
-    [APIManager searchStreetParkingHerokuWithLocation:self.resultCoordinate2D withRadius:50 completionHandler:^(id reponse, NSError *error) {
+    [APIManager searchStreetParkingHerokuWithLocation:self.resultCoordinate2D withRadius:self.radiusRange completionHandler:^(id response, NSError *error) {
         if (!error) {
             self.streetParkingObject = [[NSMutableDictionary alloc]init];
-            self.streetParkingObject = reponse;
+            self.streetParkingObject = response;
+            NSLog(@"Heroku API response %@",response);
             [self updateMap];
         } else {
-            NSLog(@"Alert Error!!");
+            NSLog(@"Heroku API Error %@",error);
         }
     }];
 }
