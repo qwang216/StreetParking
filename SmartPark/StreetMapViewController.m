@@ -188,6 +188,7 @@
 -(void)updateMap {
     [self.mapView removeAnnotations:self.mapView.annotations];
     NSArray *listOfSigns = [self.streetParkingObject objectForKey:@"results"];
+    NSLog(@"List of Signs %@",listOfSigns);
     
     for (NSDictionary *streetSign in listOfSigns) {
         [self addMappAnnotationForStreetSign: streetSign];
