@@ -8,7 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		83CE29C680F110A056259866 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 38C02E4CA16DEFA9AA69610C /* libPods.a */; };
-		D447AF0F1BDCAAA2000D3311 /* APIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D447AF0E1BDCAAA2000D3311 /* APIManager.m */; };
+		D47CF61B1C38D4DF00AB8CA7 /* StreetSignAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = D47CF61A1C38D4DF00AB8CA7 /* StreetSignAPI.m */; };
+		D47CF61E1C38D4EB00AB8CA7 /* AddressAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = D47CF61D1C38D4EB00AB8CA7 /* AddressAPI.m */; };
+		D47CF6211C38EC8800AB8CA7 /* StreetSign.m in Sources */ = {isa = PBXBuildFile; fileRef = D47CF6201C38EC8800AB8CA7 /* StreetSign.m */; };
 		D47FCA6B1BDC087D000BE6BA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D47FCA6A1BDC087D000BE6BA /* main.m */; };
 		D47FCA6E1BDC087D000BE6BA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D47FCA6D1BDC087D000BE6BA /* AppDelegate.m */; };
 		D47FCA741BDC087D000BE6BA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D47FCA721BDC087D000BE6BA /* Main.storyboard */; };
@@ -20,6 +22,7 @@
 		D47FCAA11BDC091C000BE6BA /* StreetMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D47FCAA01BDC091C000BE6BA /* StreetMapViewController.m */; };
 		D47FCAA31BDC0D7F000BE6BA /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D47FCAA21BDC0D7F000BE6BA /* MapKit.framework */; };
 		D47FCAA61BDC0F7F000BE6BA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D47FCAA51BDC0F7F000BE6BA /* CoreLocation.framework */; };
+		D4DDDF541C40784F006E1954 /* MyAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DDDF531C40784F006E1954 /* MyAnnotation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,8 +46,12 @@
 		258ECB01C8A3D51AD05CFD23 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		38C02E4CA16DEFA9AA69610C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC18B40FEB127535708935DE /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		D447AF0D1BDCAAA2000D3311 /* APIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIManager.h; sourceTree = "<group>"; };
-		D447AF0E1BDCAAA2000D3311 /* APIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIManager.m; sourceTree = "<group>"; };
+		D47CF6191C38D4DF00AB8CA7 /* StreetSignAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreetSignAPI.h; sourceTree = "<group>"; };
+		D47CF61A1C38D4DF00AB8CA7 /* StreetSignAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreetSignAPI.m; sourceTree = "<group>"; };
+		D47CF61C1C38D4EB00AB8CA7 /* AddressAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressAPI.h; sourceTree = "<group>"; };
+		D47CF61D1C38D4EB00AB8CA7 /* AddressAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressAPI.m; sourceTree = "<group>"; };
+		D47CF61F1C38EC8800AB8CA7 /* StreetSign.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StreetSign.h; sourceTree = "<group>"; };
+		D47CF6201C38EC8800AB8CA7 /* StreetSign.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreetSign.m; sourceTree = "<group>"; };
 		D47FCA661BDC087D000BE6BA /* SmartPark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartPark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D47FCA6A1BDC087D000BE6BA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D47FCA6C1BDC087D000BE6BA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -64,6 +71,8 @@
 		D47FCAA01BDC091C000BE6BA /* StreetMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreetMapViewController.m; sourceTree = "<group>"; };
 		D47FCAA21BDC0D7F000BE6BA /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D47FCAA51BDC0F7F000BE6BA /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		D4DDDF521C40784F006E1954 /* MyAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAnnotation.h; sourceTree = "<group>"; };
+		D4DDDF531C40784F006E1954 /* MyAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAnnotation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +120,21 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		D47CF6221C3B55C600AB8CA7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D47CF61F1C38EC8800AB8CA7 /* StreetSign.h */,
+				D47CF6201C38EC8800AB8CA7 /* StreetSign.m */,
+				D47CF6191C38D4DF00AB8CA7 /* StreetSignAPI.h */,
+				D47CF61A1C38D4DF00AB8CA7 /* StreetSignAPI.m */,
+				D47CF61C1C38D4EB00AB8CA7 /* AddressAPI.h */,
+				D47CF61D1C38D4EB00AB8CA7 /* AddressAPI.m */,
+				D4DDDF521C40784F006E1954 /* MyAnnotation.h */,
+				D4DDDF531C40784F006E1954 /* MyAnnotation.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		D47FCA5D1BDC087D000BE6BA = {
 			isa = PBXGroup;
 			children = (
@@ -139,10 +163,9 @@
 			children = (
 				D47FCA6C1BDC087D000BE6BA /* AppDelegate.h */,
 				D47FCA6D1BDC087D000BE6BA /* AppDelegate.m */,
-				D447AF0D1BDCAAA2000D3311 /* APIManager.h */,
-				D447AF0E1BDCAAA2000D3311 /* APIManager.m */,
 				D47FCA9F1BDC091C000BE6BA /* StreetMapViewController.h */,
 				D47FCAA01BDC091C000BE6BA /* StreetMapViewController.m */,
+				D47CF6221C3B55C600AB8CA7 /* Model */,
 				D47FCA721BDC087D000BE6BA /* Main.storyboard */,
 				D47FCA781BDC087D000BE6BA /* Assets.xcassets */,
 				D47FCA7A1BDC087D000BE6BA /* LaunchScreen.storyboard */,
@@ -372,11 +395,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D47CF61B1C38D4DF00AB8CA7 /* StreetSignAPI.m in Sources */,
 				D47FCA6E1BDC087D000BE6BA /* AppDelegate.m in Sources */,
+				D4DDDF541C40784F006E1954 /* MyAnnotation.m in Sources */,
 				D47FCA6B1BDC087D000BE6BA /* main.m in Sources */,
 				D47FCAA11BDC091C000BE6BA /* StreetMapViewController.m in Sources */,
 				D47FCA771BDC087D000BE6BA /* SmartPark.xcdatamodeld in Sources */,
-				D447AF0F1BDCAAA2000D3311 /* APIManager.m in Sources */,
+				D47CF61E1C38D4EB00AB8CA7 /* AddressAPI.m in Sources */,
+				D47CF6211C38EC8800AB8CA7 /* StreetSign.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,18 +10,19 @@
 #import <CoreLocation/CoreLocation.h>
 
 #import "StreetMapViewController.h"
-#import "APIManager.h"
+#import "AddressAPI.h"
+#import "StreetSign.h"
+#import "StreetSignAPI.h"
+#import "MyAnnotation.h"
 
 @interface StreetMapViewController () <MKMapViewDelegate, CLLocationManagerDelegate, UISearchBarDelegate>
 //IBOutlet
-@property (strong, nonatomic) IBOutlet MKMapView *mapView;
+@property (strong, nonatomic) IBOutlet MKMapView *myMapView;
 @property (strong, nonatomic) IBOutlet UISearchBar *searchBar;
 
 //Location Property
 @property (nonatomic) CLLocationManager *locationManager;
 @property (nonatomic) MKCoordinateRegion currentRegion;
-@property (nonatomic) NSString *resultAddress;
-@property (nonatomic) CLLocationCoordinate2D resultCoordinate2D;
 
 //Keyboard
 @property (nonatomic) UITapGestureRecognizer *tapReconizer;
@@ -45,7 +46,7 @@
         [self saveToNSUserDefaults];
     }
     
-    self.mapView.delegate = self;
+    self.myMapView.delegate = self;
     self.searchBar.delegate = self;
     
     [self checkForLocationServices];
@@ -64,7 +65,7 @@
 
 - (IBAction)refreshButtonTapped:(UIBarButtonItem *)sender {
     
-    [self.mapView setRegion:self.currentRegion animated:YES];
+    [self.myMapView setRegion:self.currentRegion animated:YES];
     
 }
 
@@ -72,13 +73,13 @@
 - (IBAction)mapType:(UISegmentedControl *)sender {
     switch (sender.selectedSegmentIndex) {
         case 0:
-            self.mapView.mapType = MKMapTypeStandard;
+            self.myMapView.mapType = MKMapTypeStandard;
             break;
         case 1:
-            self.mapView.mapType = MKMapTypeHybrid;
+            self.myMapView.mapType = MKMapTypeHybrid;
             break;
         case 2:
-            self.mapView.mapType = MKMapTypeSatellite;
+            self.myMapView.mapType = MKMapTypeSatellite;
             break;
             
         default:
@@ -111,13 +112,13 @@
     [self presentViewController:radiusSelection animated:YES completion:nil];
 }
 
--(void)saveToNSUserDefaults {
+- (void)saveToNSUserDefaults {
     [[NSUserDefaults standardUserDefaults] setObject:self.radiusRange forKey:@"radius"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 #pragma mark - LocationMethods
--(void)checkForLocationServices{
+- (void)checkForLocationServices {
     
     if ([CLLocationManager locationServicesEnabled] ) {
         self.locationManager = [[CLLocationManager alloc] init];
@@ -136,16 +137,8 @@
 
 
 
--(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
     CLLocation *newLocation = [locations lastObject];
-    
-//    CLLocation *oldLocation;
-//    if (locations.count > 1) {
-//        oldLocation = [locations objectAtIndex:locations.count - 2];
-//    } else {
-//        oldLocation = nil;
-//    }
-    
     self.currentRegion = MKCoordinateRegionMakeWithDistance(newLocation.coordinate, 800, 800);
 }
 
@@ -153,63 +146,108 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     
-    [APIManager searchGoogleAPIWithStringAddress:searchBar.text completionHandler:^(id response, NSError *error) {
-        
-        NSLog(@"Google API reponse %@",response);
-        NSLog(@"Google API Error %@",error);
-        if ([response[@"status"] isEqualToString:@"OK"]) {
-            self.googleResponseObject = [[NSMutableDictionary alloc]init];
-            self.googleResponseObject = response;
-            self.resultAddress = self.googleResponseObject[@"results"][0][@"formatted_address"];
-            self.resultCoordinate2D = CLLocationCoordinate2DMake([self.googleResponseObject[@"results"][0][@"geometry"][@"location"][@"lat"]doubleValue], [self.googleResponseObject[@"results"][0][@"geometry"][@"location"][@"lng"]doubleValue]);
-            NSLog(@"lat: %f   lng: %f", self.resultCoordinate2D.latitude, self.resultCoordinate2D.longitude);
-            [self processHerokuAPI];
-        } else {
-            NSLog(@"Display a Alert");
-        }
-    }];
-}
-
--(void)processHerokuAPI{
-    self.radiusRange = [[NSUserDefaults standardUserDefaults] objectForKey:@"radius"];
-
-    [APIManager searchStreetParkingHerokuWithLocation:self.resultCoordinate2D withRadius:self.radiusRange completionHandler:^(id response, NSError *error) {
+    AddressAPI *address = [AddressAPI new];
+    [address searchGoogleAPIWithStringAddress:searchBar.text completionHandler:^(NSString *formattedAddress, CLLocationCoordinate2D resultCoordinate2D, NSError *error) {
         if (!error) {
-            self.streetParkingObject = [[NSMutableDictionary alloc]init];
-            self.streetParkingObject = response;
-            NSLog(@"Heroku API response %@",response);
-            [self updateMap];
+            [self addressConfirmationAlertWithAddress:formattedAddress andLocationCoordinate:resultCoordinate2D];
         } else {
-            NSLog(@"Heroku API Error %@",error);
+            
         }
     }];
+    
+
 }
 
--(void)updateMap {
-    [self.mapView removeAnnotations:self.mapView.annotations];
-    NSArray *listOfSigns = [self.streetParkingObject objectForKey:@"results"];
-    NSLog(@"List of Signs %@",listOfSigns);
+- (void)addressConfirmationAlertWithAddress:(NSString *)address andLocationCoordinate:(CLLocationCoordinate2D)coordinate {
+    // display comfirm address alart
+    UIAlertController *confirmAddress = [UIAlertController alertControllerWithTitle:@"Confirm Address" message:address preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    UIAlertAction *yesAction = [UIAlertAction actionWithTitle:@"Yes" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        [self dropMapPinOnDestination:coordinate withAddressString:address];
+        
+        [self queryStreetSignsWithCLLocationCoordinate:coordinate];
+        
+        // zoom to destination
+        MKCoordinateRegion destinationRegion = MKCoordinateRegionMakeWithDistance(coordinate, [self.radiusRange integerValue] + 300, [self.radiusRange integerValue] + 300);
+        [self.myMapView setRegion:destinationRegion animated:YES];
+        
+    }];
     
-    for (NSDictionary *streetSign in listOfSigns) {
-        [self addMappAnnotationForStreetSign: streetSign];
-    }
+    [confirmAddress addAction:cancelAction];
+    [confirmAddress addAction:yesAction];
+    [self presentViewController:confirmAddress animated:YES completion:nil];
 }
 
--(void)addMappAnnotationForStreetSign: (NSDictionary *)sign{
-    MKPointAnnotation *mapPin = [[MKPointAnnotation alloc] init];
-    
-    double lat = [sign[@"latitude"] doubleValue];
-    double lng = [sign[@"longtitude"] doubleValue];
-    CLLocationCoordinate2D latLng = CLLocationCoordinate2DMake(lat, lng);
-    
-    mapPin.coordinate = latLng;
-    mapPin.title = sign[@"signdesc"];
-    [self.mapView addAnnotation:mapPin];
+- (void)dropMapPinOnDestination:(CLLocationCoordinate2D)coordinate withAddressString:(NSString *)address {
+    // drop destination pin
+    [self.myMapView removeAnnotations:self.myMapView.annotations];
+    MKPointAnnotation *destinationPin = [MKPointAnnotation new];
+    destinationPin.coordinate = CLLocationCoordinate2DMake(coordinate.latitude, coordinate.longitude);
+    destinationPin.title = address;
+    [self.myMapView addAnnotation:destinationPin];
 }
+
+
+- (void)queryStreetSignsWithCLLocationCoordinate:(CLLocationCoordinate2D) coordinate {
+    
+    self.radiusRange = [[NSUserDefaults standardUserDefaults] objectForKey:@"radius"];
+    StreetSignAPI *queryStreetSign = [StreetSignAPI new];
+    [queryStreetSign searchStreetParkingHerokuWithLocation:coordinate withRadius:self.radiusRange completionHandler:^(NSMutableArray<StreetSign *> *listOfSigns, NSError *error) {
+        
+        if (!error) {
+            for (StreetSign *streetSign in listOfSigns) {
+                [self addMappAnnotationForStreetSign:streetSign];
+                
+            }
+        }
+        
+    }];
+    
+}
+
+- (void)addMappAnnotationForStreetSign:(StreetSign *)sign {
+    CLLocationCoordinate2D latLng = CLLocationCoordinate2DMake(sign.lat, sign.lng);
+#warning Empty subtitle!!!
+    MyAnnotation *mapPin = [[MyAnnotation alloc]initWithCoordinates:latLng title:sign.description subtitle:@""];
+    [self.myMapView addAnnotation:mapPin];
+}
+
+
+#pragma mark - Annotation Delegate
+
+
+//
+//- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+//    MKAnnotationView *result = nil;
+//    if ([annotation isKindOfClass: [MyAnnotation class]] == NO) {
+//        return result;
+//    }
+//    
+//    if ([mapView isEqual:self.myMapView]) {
+//        return result;
+//    }
+//    
+//    MyAnnotation *senderAnnotation = (MyAnnotation *)annotation;
+//    NSString *pinReusableID = [MyAnnotation reusableIdentifierforPinColor:senderAnnotation.pinColor];
+//    MKPinAnnotationView *annotationView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:pinReusableID];
+//    if (annotationView == nil) {
+//        annotationView = [[MKPinAnnotationView alloc]initWithAnnotation:senderAnnotation reuseIdentifier:pinReusableID];
+//        [annotationView setCanShowCallout:YES];
+//    }
+//    
+//    annotationView.pinTintColor = senderAnnotation.pinColor;
+//    result = annotationView;
+//    return result;
+//    
+//}
+
 
 #pragma mark - KeyboardBehaviors
 
--(void)keyboardGestureRecognizer {
+- (void)keyboardGestureRecognizer {
     NSNotificationCenter *keyboard = [NSNotificationCenter defaultCenter];
     [keyboard addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [keyboard addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -217,15 +255,15 @@
     self.tapReconizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapAnyWhere:)];
 }
 
--(void)keyboardWillShow: (NSNotification *)show {
+- (void)keyboardWillShow: (NSNotification *)show {
     [self.view addGestureRecognizer:self.tapReconizer];
 }
 
--(void)keyboardWillHide: (NSNotification *)hide {
+- (void)keyboardWillHide: (NSNotification *)hide {
     [self.view removeGestureRecognizer:self.tapReconizer];
 }
 
--(void)didTapAnyWhere: (UITapGestureRecognizer *)reconizer {
+- (void)didTapAnyWhere: (UITapGestureRecognizer *)reconizer {
     [self.searchBar resignFirstResponder];
 }
 
