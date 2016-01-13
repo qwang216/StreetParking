@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BfK-dd-1EE">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <scenes>
@@ -80,7 +81,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="mapView" destination="lWu-pg-uI3" id="ucW-8Z-u60"/>
+                        <outlet property="myMapView" destination="lWu-pg-uI3" id="GRl-gF-qwj"/>
                         <outlet property="searchBar" destination="mca-Rd-wLO" id="knK-K2-jxj"/>
                         <outlet property="searchDisplayController" destination="fpA-nI-QHi" id="uk7-dx-d57"/>
                     </connections>

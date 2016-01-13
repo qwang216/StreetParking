@@ -17,4 +17,15 @@
 @synthesize fromTime;
 @synthesize toTime;
 
+-(instancetype)initWithRegulationDays:(NSArray <NSString *> *)dates {
+    if (self = [super init]) {
+        if (dates) {
+            self.days = [[NSArray alloc]initWithArray:dates];
+        }
+        self.days = nil;
+        return self;
+    }
+    return nil;
+}
+
 @end

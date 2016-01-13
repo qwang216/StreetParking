@@ -25,8 +25,8 @@
         for (NSArray *streetSignArray in responseObject[@"results"]) {
             for (NSDictionary *streetSignDict in streetSignArray) {
                 StreetSign *streetSign = [StreetSign new];
-                streetSign.lng = [streetSignDict[@"longtitude"] doubleValue];
-                streetSign.lat = [streetSignDict[@"latitude"] doubleValue];
+                streetSign.lng = [[streetSignDict objectForKey:@"longtitude"] doubleValue];
+                streetSign.lat = [[streetSignDict objectForKey:@"latitude"] doubleValue];
                 streetSign.description = streetSignDict[@"signdesc1"];
                 streetSign.fromTime = streetSignDict[@"from_time"];
                 streetSign.toTime = streetSignDict[@"to_time"];

@@ -12,9 +12,10 @@
 @property (nonatomic) NSString *description;
 @property (nonatomic) double lng;
 @property (nonatomic) double lat;
-@property (nonatomic) NSString *days;
+@property (nonatomic) NSArray <NSString *> *days;
 @property (nonatomic) NSString *fromTime;
 @property (nonatomic) NSString *toTime;
 
+-(instancetype)initWithRegulationDays:(NSArray <NSString *> *)dates;
 
 @end

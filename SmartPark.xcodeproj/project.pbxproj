@@ -22,7 +22,7 @@
 		D47FCAA11BDC091C000BE6BA /* StreetMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D47FCAA01BDC091C000BE6BA /* StreetMapViewController.m */; };
 		D47FCAA31BDC0D7F000BE6BA /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D47FCAA21BDC0D7F000BE6BA /* MapKit.framework */; };
 		D47FCAA61BDC0F7F000BE6BA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D47FCAA51BDC0F7F000BE6BA /* CoreLocation.framework */; };
-		D4DDDF541C40784F006E1954 /* MyAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DDDF531C40784F006E1954 /* MyAnnotation.m */; };
+		D4D696931C46F785008BD4F1 /* SPAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D4D696921C46F785008BD4F1 /* SPAnnotation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,8 +71,8 @@
 		D47FCAA01BDC091C000BE6BA /* StreetMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StreetMapViewController.m; sourceTree = "<group>"; };
 		D47FCAA21BDC0D7F000BE6BA /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D47FCAA51BDC0F7F000BE6BA /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		D4DDDF521C40784F006E1954 /* MyAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAnnotation.h; sourceTree = "<group>"; };
-		D4DDDF531C40784F006E1954 /* MyAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAnnotation.m; sourceTree = "<group>"; };
+		D4D696911C46F785008BD4F1 /* SPAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPAnnotation.h; sourceTree = "<group>"; };
+		D4D696921C46F785008BD4F1 /* SPAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPAnnotation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,8 +129,8 @@
 				D47CF61A1C38D4DF00AB8CA7 /* StreetSignAPI.m */,
 				D47CF61C1C38D4EB00AB8CA7 /* AddressAPI.h */,
 				D47CF61D1C38D4EB00AB8CA7 /* AddressAPI.m */,
-				D4DDDF521C40784F006E1954 /* MyAnnotation.h */,
-				D4DDDF531C40784F006E1954 /* MyAnnotation.m */,
+				D4D696911C46F785008BD4F1 /* SPAnnotation.h */,
+				D4D696921C46F785008BD4F1 /* SPAnnotation.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -397,8 +397,8 @@
 			files = (
 				D47CF61B1C38D4DF00AB8CA7 /* StreetSignAPI.m in Sources */,
 				D47FCA6E1BDC087D000BE6BA /* AppDelegate.m in Sources */,
-				D4DDDF541C40784F006E1954 /* MyAnnotation.m in Sources */,
 				D47FCA6B1BDC087D000BE6BA /* main.m in Sources */,
+				D4D696931C46F785008BD4F1 /* SPAnnotation.m in Sources */,
 				D47FCAA11BDC091C000BE6BA /* StreetMapViewController.m in Sources */,
 				D47FCA771BDC087D000BE6BA /* SmartPark.xcdatamodeld in Sources */,
 				D47CF61E1C38D4EB00AB8CA7 /* AddressAPI.m in Sources */,
@@ -542,8 +542,9 @@
 			baseConfigurationReference = BC18B40FEB127535708935DE /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = SmartPark/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jasonwang.SmartPark;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -555,8 +556,9 @@
 			baseConfigurationReference = 258ECB01C8A3D51AD05CFD23 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = SmartPark/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jasonwang.SmartPark;
 				PRODUCT_NAME = "$(TARGET_NAME)";

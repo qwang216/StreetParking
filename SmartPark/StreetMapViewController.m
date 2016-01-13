@@ -13,7 +13,7 @@
 #import "AddressAPI.h"
 #import "StreetSign.h"
 #import "StreetSignAPI.h"
-#import "MyAnnotation.h"
+#import "SPAnnotation.h"
 
 @interface StreetMapViewController () <MKMapViewDelegate, CLLocationManagerDelegate, UISearchBarDelegate>
 //IBOutlet
@@ -28,9 +28,6 @@
 @property (nonatomic) UITapGestureRecognizer *tapReconizer;
 
 
-//API Data Holder
-@property (nonatomic) NSMutableDictionary *googleResponseObject;
-@property (nonatomic) NSMutableDictionary *streetParkingObject;
 @property (nonatomic) NSString *radiusRange;
 
 
@@ -47,6 +44,8 @@
     }
     
     self.myMapView.delegate = self;
+    self.myMapView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+//    [self.view addSubview:self.myMapView];
     self.searchBar.delegate = self;
     
     [self checkForLocationServices];
@@ -184,9 +183,8 @@
 - (void)dropMapPinOnDestination:(CLLocationCoordinate2D)coordinate withAddressString:(NSString *)address {
     // drop destination pin
     [self.myMapView removeAnnotations:self.myMapView.annotations];
-    MKPointAnnotation *destinationPin = [MKPointAnnotation new];
-    destinationPin.coordinate = CLLocationCoordinate2DMake(coordinate.latitude, coordinate.longitude);
-    destinationPin.title = address;
+    SPAnnotation *destinationPin = [[SPAnnotation alloc]initWithCoordinates:coordinate title:address subtitle:@""];
+    destinationPin.pinColor= MKPinAnnotationColorGreen;
     [self.myMapView addAnnotation:destinationPin];
 }
 
@@ -200,8 +198,10 @@
         if (!error) {
             for (StreetSign *streetSign in listOfSigns) {
                 [self addMappAnnotationForStreetSign:streetSign];
-                
             }
+        } else {
+#warning alert message with street sign no found
+            NSLog(@"street sign no found");
         }
         
     }];
@@ -210,39 +210,36 @@
 
 - (void)addMappAnnotationForStreetSign:(StreetSign *)sign {
     CLLocationCoordinate2D latLng = CLLocationCoordinate2DMake(sign.lat, sign.lng);
-#warning Empty subtitle!!!
-    MyAnnotation *mapPin = [[MyAnnotation alloc]initWithCoordinates:latLng title:sign.description subtitle:@""];
-    [self.myMapView addAnnotation:mapPin];
+    SPAnnotation *strAnnotation = [[SPAnnotation alloc]initWithCoordinates:latLng title:sign.description subtitle:@""];
+    strAnnotation.pinColor = MKPinAnnotationColorPurple;
+    [self.myMapView addAnnotation:strAnnotation];
 }
 
 
 #pragma mark - Annotation Delegate
 
 
-//
-//- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
-//    MKAnnotationView *result = nil;
-//    if ([annotation isKindOfClass: [MyAnnotation class]] == NO) {
-//        return result;
-//    }
-//    
-//    if ([mapView isEqual:self.myMapView]) {
-//        return result;
-//    }
-//    
-//    MyAnnotation *senderAnnotation = (MyAnnotation *)annotation;
-//    NSString *pinReusableID = [MyAnnotation reusableIdentifierforPinColor:senderAnnotation.pinColor];
-//    MKPinAnnotationView *annotationView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:pinReusableID];
-//    if (annotationView == nil) {
-//        annotationView = [[MKPinAnnotationView alloc]initWithAnnotation:senderAnnotation reuseIdentifier:pinReusableID];
-//        [annotationView setCanShowCallout:YES];
-//    }
-//    
-//    annotationView.pinTintColor = senderAnnotation.pinColor;
-//    result = annotationView;
-//    return result;
-//    
-//}
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
+    MKAnnotationView *result = nil;
+    if ([annotation isKindOfClass:[SPAnnotation class]] == NO) {
+        return result;
+    }
+    if ([mapView isEqual:self.myMapView]) {
+        return result;
+    }
+    
+    SPAnnotation *senderAnnotation = (SPAnnotation *)annotation;
+    NSString *pinReusableID = [SPAnnotation reusableIdentifierforPinColor:senderAnnotation.pinColor];
+    MKPinAnnotationView *annotationView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:pinReusableID];
+    
+    if (annotationView == nil) {
+        annotationView = [[MKPinAnnotationView alloc]initWithAnnotation:senderAnnotation reuseIdentifier:pinReusableID];
+        [annotationView setCanShowCallout:YES];
+    }
+    annotationView.pinColor = senderAnnotation.pinColor;
+    result = annotationView;
+    return result;
+}
 
 
 #pragma mark - KeyboardBehaviors
