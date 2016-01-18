@@ -125,10 +125,6 @@
 			children = (
 				D47CF61F1C38EC8800AB8CA7 /* StreetSign.h */,
 				D47CF6201C38EC8800AB8CA7 /* StreetSign.m */,
-				D47CF6191C38D4DF00AB8CA7 /* StreetSignAPI.h */,
-				D47CF61A1C38D4DF00AB8CA7 /* StreetSignAPI.m */,
-				D47CF61C1C38D4EB00AB8CA7 /* AddressAPI.h */,
-				D47CF61D1C38D4EB00AB8CA7 /* AddressAPI.m */,
 				D4D696911C46F785008BD4F1 /* SPAnnotation.h */,
 				D4D696921C46F785008BD4F1 /* SPAnnotation.m */,
 			);
@@ -165,6 +161,7 @@
 				D47FCA6D1BDC087D000BE6BA /* AppDelegate.m */,
 				D47FCA9F1BDC091C000BE6BA /* StreetMapViewController.h */,
 				D47FCAA01BDC091C000BE6BA /* StreetMapViewController.m */,
+				D4D696941C481A84008BD4F1 /* Helper */,
 				D47CF6221C3B55C600AB8CA7 /* Model */,
 				D47FCA721BDC087D000BE6BA /* Main.storyboard */,
 				D47FCA781BDC087D000BE6BA /* Assets.xcassets */,
@@ -209,6 +206,17 @@
 				D47FCAA21BDC0D7F000BE6BA /* MapKit.framework */,
 			);
 			name = FrameWork;
+			sourceTree = "<group>";
+		};
+		D4D696941C481A84008BD4F1 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				D47CF6191C38D4DF00AB8CA7 /* StreetSignAPI.h */,
+				D47CF61A1C38D4DF00AB8CA7 /* StreetSignAPI.m */,
+				D47CF61C1C38D4EB00AB8CA7 /* AddressAPI.h */,
+				D47CF61D1C38D4EB00AB8CA7 /* AddressAPI.m */,
+			);
+			name = Helper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -544,7 +552,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = SmartPark/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jasonwang.SmartPark;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -558,7 +566,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = SmartPark/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jasonwang.SmartPark;
 				PRODUCT_NAME = "$(TARGET_NAME)";

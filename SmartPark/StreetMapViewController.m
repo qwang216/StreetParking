@@ -183,9 +183,10 @@
 - (void)dropMapPinOnDestination:(CLLocationCoordinate2D)coordinate withAddressString:(NSString *)address {
     // drop destination pin
     [self.myMapView removeAnnotations:self.myMapView.annotations];
-    SPAnnotation *destinationPin = [[SPAnnotation alloc]initWithCoordinates:coordinate title:address subtitle:@""];
-    destinationPin.pinColor= MKPinAnnotationColorGreen;
-    [self.myMapView addAnnotation:destinationPin];
+    MKPointAnnotation *destinationAnnotation = [MKPointAnnotation new];
+    destinationAnnotation.coordinate = coordinate;
+    destinationAnnotation.title = address;
+    [self.myMapView addAnnotation:destinationAnnotation];
 }
 
 
@@ -210,8 +211,9 @@
 
 - (void)addMappAnnotationForStreetSign:(StreetSign *)sign {
     CLLocationCoordinate2D latLng = CLLocationCoordinate2DMake(sign.lat, sign.lng);
-    SPAnnotation *strAnnotation = [[SPAnnotation alloc]initWithCoordinates:latLng title:sign.description subtitle:@""];
-    strAnnotation.pinColor = MKPinAnnotationColorPurple;
+    MKPointAnnotation *strAnnotation = [MKPointAnnotation new];
+    strAnnotation.coordinate = latLng;
+    strAnnotation.title = sign.description;
     [self.myMapView addAnnotation:strAnnotation];
 }
 
@@ -238,6 +240,8 @@
     }
     annotationView.pinColor = senderAnnotation.pinColor;
     result = annotationView;
+    
+    annotationView.pinTintColor = [UIColor blueColor];
     return result;
 }
 

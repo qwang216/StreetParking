@@ -15,23 +15,14 @@ NSString *const kReusablePinPurple = @"Purple";
 
 
 @implementation SPAnnotation
-
 @synthesize coordinate;
-@synthesize title;
-@synthesize subtitle;
-@synthesize pinColor;
-- (instancetype)initWithCoordinates: (CLLocationCoordinate2D)paramCoordinates
-                              title:(NSString *)paramTitle
-                           subtitle:(NSString *)paramSubtitle {
+
+-(id)initWithLocation:(CLLocationCoordinate2D)coord; {
     self = [super init];
-    if (self != nil) {
-        coordinate = paramCoordinates;
-        title = paramTitle;
-        subtitle = paramSubtitle;
-        pinColor = MKPinAnnotationColorGreen;
+    if (self) {
+        coordinate = coord;
     }
     return self;
-    
 }
 
 + (NSString *) reusableIdentifierforPinColor: (MKPinAnnotationColor)paramColor {
