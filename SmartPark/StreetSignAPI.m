@@ -27,7 +27,7 @@
                 StreetSign *streetSign = [StreetSign new];
                 streetSign.lng = [[streetSignDict objectForKey:@"longtitude"] doubleValue];
                 streetSign.lat = [[streetSignDict objectForKey:@"latitude"] doubleValue];
-                streetSign.description = streetSignDict[@"signdesc1"];
+                streetSign.description = streetSignDict[@"description"];
                 streetSign.fromTime = streetSignDict[@"from_time"];
                 streetSign.toTime = streetSignDict[@"to_time"];
                 if (streetSignDict[@"days"]) {
